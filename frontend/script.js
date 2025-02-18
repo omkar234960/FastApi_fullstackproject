@@ -8,7 +8,7 @@ const fetchProducts = async () => {
 
     products.forEach(product => {
         const listItem = document.createElement('li');
-        listItem.textContent = `ID: ${product.id} | Name: ${product.name} | Address: ${product.add} | Quantity: ${product.Quantity} | Price: ${product.price}`;
+        listItem.textContent = `ID: ${product.id} | Name: ${product.name} | Add: ${product.add} | Quantity: ${product.Quantity} | Price: ${product.price}`;
         const deleteButton = document.createElement('button');
         deleteButton.textContent = 'Delete';
         deleteButton.onclick = () => deleteProduct(product.id);
@@ -22,8 +22,8 @@ document.getElementById('addProductForm').addEventListener('submit', async (even
     const newProduct = {
         name: document.getElementById('name').value,
         add: document.getElementById('add').value,
-        Quantity: document.getElementById('quantity').value,
-        price: document.getElementById('price').value,
+        Quantity: parseInt(document.getElementById('quantity').value),
+        price: parseFloat(document.getElementById('price').value),
         date_added: document.getElementById('date_added').value
     };
 
@@ -45,8 +45,8 @@ document.getElementById('updateProductForm').addEventListener('submit', async (e
     const updatedProduct = {
         name: document.getElementById('updateName').value,
         add: document.getElementById('updateAdd').value,
-        Quantity: document.getElementById('updateQuantity').value,
-        price: document.getElementById('updatePrice').value
+        Quantity: parseInt(document.getElementById('updateQuantity').value),
+        price: parseFloat(document.getElementById('updatePrice').value)
     };
 
     await fetch(`${baseUrl}/product/${productId}`, {
@@ -60,7 +60,6 @@ document.getElementById('updateProductForm').addEventListener('submit', async (e
     event.target.reset();
     fetchProducts();
 });
-
 
 const deleteProduct = async (id) => {
     await fetch(`${baseUrl}/product/${id}`, {
